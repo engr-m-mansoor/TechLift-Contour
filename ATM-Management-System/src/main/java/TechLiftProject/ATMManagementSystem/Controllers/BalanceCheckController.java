@@ -11,6 +11,7 @@ public class BalanceCheckController {
     BalanceCheckService balanceCheckService;
     @GetMapping(path = "/atm-balance-inquiry")
     public String getAvailableBalance( ) {
-        return balanceCheckService.getAvailableBalance();
+        System.out.println(balanceCheckService.getAvailableBalance());
+        return null;
     }
 }

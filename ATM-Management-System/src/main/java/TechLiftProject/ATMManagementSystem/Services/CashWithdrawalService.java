@@ -1,47 +1,35 @@
 package TechLiftProject.ATMManagementSystem.Services;
 
 
-import TechLiftProject.ATMManagementSystem.Entities.Account;
-import TechLiftProject.ATMManagementSystem.Entities.Transaction;
-import TechLiftProject.ATMManagementSystem.Entities.TransactionType;
-import TechLiftProject.ATMManagementSystem.Models.Login;
-import TechLiftProject.ATMManagementSystem.Repositories.AccountRepository;
-import TechLiftProject.ATMManagementSystem.Repositories.TransactionRepository;
-import TechLiftProject.ATMManagementSystem.Repositories.TransactionTypeRepository;
+
+import TechLiftProject.ATMManagementSystem.Models.ModelData;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Objects;
 
 @Service
 public class CashWithdrawalService {
     @Autowired
-    AccountRepository accountRepository;
+    AccountDataService accountDataService;
     @Autowired
-    BalanceCheckService balanceCheckService;
-    @Autowired
-    TransactionRepository transactionRepository;
-    @Autowired
-    TransactionTypeRepository typeRepository;
-    public String cashWithdraw(Long amount) {
-        Login login= Login.getInstance();
-        Account account = accountRepository.findAccountByCardNumber(login.getEnteredCardNumber());
-        if (account == null) {
-            return "Please Login to continue" ;
-        } else if (!Objects.equals(account.getCardPin(), login.getEnteredCardPin())) {
-            return "Please Login to continue" ;
-        }
-        else {
+    TransactionService transactionService;
+    ModelData modelData;
 
-            (accountRepository.findAccountByCardNumber(login.getEnteredCardNumber())).setAvailableBalance(-amount);
-            accountRepository.save(accountRepository.findAccountByCardNumber(login.getEnteredCardNumber()));
+
+    public String cashWithdraw(Long amount) {
+        if (accountDataService.getAccountData() == null) {
+            System.out.println("Please Login to continue");
         }
-        Transaction transaction=new Transaction();
-        transaction.setAmountProcessed(amount);
-        transaction.setAccount(account);
-        TransactionType transactionType=typeRepository.findTransactionTypeById(1);
-        transaction.setTransactionType(transactionType );
-        transactionRepository.save(transaction);
-        return amount+" withdrawn successfully.\nNow available balance is "+balanceCheckService.getAvailableBalance();
+        else
+        {
+            accountDataService.findById();
+            accountDataService.getAccountData().setAvailableBalance(accountDataService.getAccountData().getAvailableBalance()+amount);
+            accountDataService.updateAccountData();
+            transactionService.recordTransaction(amount, 3);
+            return amount+" withdrawan successfully.Available Balance = " + modelData.getModelAvailableBalance();
+        }
+        return null;
     }
 }
+

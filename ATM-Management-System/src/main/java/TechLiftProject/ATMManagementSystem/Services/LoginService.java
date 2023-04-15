@@ -13,21 +13,23 @@ import java.util.Objects;
 public class LoginService {
     @Autowired
     AccountRepository accountRepository;
+    Account account;
+    Login login;
     public String authenticateLogin(Long modelCardNumber, Long modelCardPin) {
-
-        Account account = accountRepository.findAccountByCardNumber(modelCardNumber);
+        account = accountRepository.findAccountByCardNumber(modelCardNumber);
         if (account == null) {
-            throw new IllegalArgumentException("Account not found" );
+           System.out.println("Account not found");
         } else if (!Objects.equals(account.getCardPin(), modelCardPin)){
-            throw new IllegalArgumentException("Wrong Pin ");
+            System.out.println("Wrong Pin ");
         }
         else
         {
-            Login login = Login.getInstance();
+            login = Login.getInstance();
             login.setEnteredCardNumber(modelCardNumber);
             login.setEnteredCardPin(modelCardPin);
+            login.setAccountNumber(account.getAccountNumber());
             return "Welcome you are Logged in";
         }
-
+        return null;
     }
 }

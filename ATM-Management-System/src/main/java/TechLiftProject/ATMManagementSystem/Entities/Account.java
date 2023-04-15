@@ -2,11 +2,12 @@ package TechLiftProject.ATMManagementSystem.Entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
+
 import java.util.List;
 
-@Data
 @Entity
-@Table(name="account")
+@Table(name = "account")
+@Data
 public class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -34,3 +35,4 @@ public class Account {
     @OneToMany(mappedBy = "account")
     private List<Transaction> transactionList;
 }
+

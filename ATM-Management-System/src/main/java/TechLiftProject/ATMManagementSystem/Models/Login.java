@@ -6,8 +6,10 @@ import lombok.Data;
 public class Login {
     private Long enteredCardNumber;
     private Long enteredCardPin;
+    private Long accountNumber;
     private static Login instance;
     private Login() {
+
     }
     public static Login getInstance() {
         if(instance == null) {
