@@ -5,12 +5,16 @@ import TechLiftProject.ATMManagementSystem.Entities.TransactionType;
 import TechLiftProject.ATMManagementSystem.Models.ModelData;
 import TechLiftProject.ATMManagementSystem.Repositories.TransactionRepository;
 import TechLiftProject.ATMManagementSystem.Repositories.TransactionTypeRepository;
+import jakarta.transaction.Transactional;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service
 @Data
+@Transactional
 public class TransactionService {
     @Autowired
     TransactionRepository transactionRepository;

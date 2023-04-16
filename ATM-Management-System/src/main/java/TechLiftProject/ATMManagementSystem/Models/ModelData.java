@@ -15,9 +15,6 @@ public class ModelData {
     private long modelAvailableBalance;
 
     public ModelData(Long modelAvailableBalance) {
-        this.modelAccountNumber=modelAvailableBalance;
-
+        this.modelAvailableBalance=modelAvailableBalance;
     }
-
-
 }

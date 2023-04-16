@@ -1,15 +1,18 @@
 package TechLiftProject.ATMManagementSystem.Models;
 
+import TechLiftProject.ATMManagementSystem.Entities.Account;
 import lombok.Data;
 
+import java.util.Date;
+
 @Data
-public class Login {
+public class Login{
     private Long enteredCardNumber;
     private Long enteredCardPin;
-    private Long accountNumber;
+    private Account account;
+    private Date currentDate;
     private static Login instance;
     private Login() {
-
     }
     public static Login getInstance() {
         if(instance == null) {
@@ -17,9 +20,8 @@ public class Login {
         }
         return instance;
     }
-    public static void setInstance(Login instance) {
-        Login.instance = instance;
-    }
+
+
 }
 
 
