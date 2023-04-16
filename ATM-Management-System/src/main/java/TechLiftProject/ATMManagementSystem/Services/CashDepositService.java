@@ -26,7 +26,7 @@ public class CashDepositService {
         if (accountDataService.getAccountData() == null) {
             return("Please Login to continue");
         }
-        else if (amount>25000) {
+        else if (amount>200000) {
             return "Deposit Limit exceeds for one transaction";
         }
         else
