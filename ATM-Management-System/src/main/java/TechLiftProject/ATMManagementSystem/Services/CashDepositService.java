@@ -9,6 +9,8 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 
 @Service
 @Transactional
@@ -18,6 +20,7 @@ public class CashDepositService {
     @Autowired
     TransactionService transactionService;
     ModelData modelData;
+    Date currentDate;
     Login login= Login.getInstance();
 
 
@@ -33,7 +36,8 @@ public class CashDepositService {
         {
             accountDataService.getAccountData().setAvailableBalance(accountDataService.getAccountData().getAvailableBalance()+amount);
             accountDataService.updateAccountData();
-            transactionService.recordTransaction(amount, 3);
+            currentDate=new Date();
+            transactionService.recordTransaction(amount, currentDate,3);
             return amount+" deposited successfully";
         }
     }

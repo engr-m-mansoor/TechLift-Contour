@@ -10,7 +10,7 @@ public class Login{
     private Long enteredCardNumber;
     private Long enteredCardPin;
     private Account account;
-    private Date currentDate;
+
     private static Login instance;
     private Login() {
     }

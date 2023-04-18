@@ -5,6 +5,8 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service
 @Transactional
 public class UpdatePinService {
@@ -15,6 +17,7 @@ public class UpdatePinService {
     @Autowired
     LoginService loginService;
     Login login;
+    Date currentDate;
     public String updatePin(int pin) {
         accountDataService.passToAccountData();
         if (accountDataService.getAccountData() == null) {
@@ -29,7 +32,8 @@ public class UpdatePinService {
         {
             accountDataService.getAccountData().setCardPin(pin);
             accountDataService.updateAccountData();
-            transactionService.recordTransaction(0L,4);
+            currentDate=new Date();
+            transactionService.recordTransaction(0L,currentDate,4);
             loginService.exit();
             return "Pin updated successfully";
         }

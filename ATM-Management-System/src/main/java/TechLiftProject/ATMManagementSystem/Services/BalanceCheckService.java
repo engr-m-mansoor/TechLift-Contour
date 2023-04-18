@@ -11,6 +11,8 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 
 @Service
 @Transactional
@@ -26,6 +28,7 @@ public class BalanceCheckService {
     @Autowired
     AccountDataService accountDataService;
     ModelData modelData;
+    Date currentDate;
     Login login= Login.getInstance();
 
     public String getAvailableBalance() {
@@ -36,9 +39,8 @@ public class BalanceCheckService {
         else {
 
             modelData = new ModelData((accountDataService.getAccountData()).getAvailableBalance());
-
-
-            transactionService.recordTransaction(0L, 2);
+            currentDate=new Date();
+            transactionService.recordTransaction(0L, currentDate,2);
             return ("Available Balance = " + modelData.getModelAvailableBalance());
         }
     }

@@ -23,13 +23,14 @@ public class TransactionService {
     @Autowired
     AccountDataService accountDataService;
 
- public void  recordTransaction(Long amount, int id)
+ public void  recordTransaction(Long amount, Date latestDate,int id)
  {
      Transaction transaction=new Transaction();
      transaction.setAmountProcessed(amount);
      transaction.setAccount(accountDataService.getAccountData());
      TransactionType transactionType=typeRepository.findTransactionTypeById(id);
      transaction.setTransactionType(transactionType );
+     transaction.setDate(latestDate);
      transactionRepository.save(transaction);
  }
 }
